@@ -5,12 +5,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"sih-common/configs"
-	"sih-common/models"
-	"sih-common/pkg/firebase"
 	"strconv"
 	"sync"
 	"time"
+
+	"github.com/RathodViraj/sih-common/configs"
+	"github.com/RathodViraj/sih-common/models"
+	"github.com/RathodViraj/sih-common/pkg/firebase"
 
 	"firebase.google.com/go/v4/messaging"
 	"github.com/redis/go-redis/v9"

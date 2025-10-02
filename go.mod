@@ -1,4 +1,4 @@
-module sih-common
+module github.com/RathodViraj/sih-common
 
 go 1.25.0
 

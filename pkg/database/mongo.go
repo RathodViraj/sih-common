@@ -3,8 +3,9 @@ package database
 import (
 	"context"
 	"fmt"
-	"sih-common/configs"
 	"time"
+
+	"github.com/RathodViraj/sih-common/configs"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
