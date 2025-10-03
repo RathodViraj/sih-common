@@ -2,7 +2,7 @@ package database
 
 import (
 	"context"
-	"fmt"
+	"log"
 	"os"
 
 	"github.com/redis/go-redis/v9"
@@ -12,22 +12,23 @@ var rdb *redis.Client
 var ctx = context.Background()
 
 func InitRedis() *redis.Client {
-	addr := os.Getenv("REDIS_ADDR")
-	if addr == "" {
-		addr = "localhost:6379"
+	redisURL := os.Getenv("REDIS_ADDR")
+	if redisURL == "" {
+		log.Fatal("No REDIS_ADDR set, skipping Redis init")
 	}
 
-	rdb = redis.NewClient(&redis.Options{
-		Addr: addr,
-	})
-
-	// Test connection
-	_, err := rdb.Ping(ctx).Result()
+	opt, err := redis.ParseURL(redisURL)
 	if err != nil {
-		panic(fmt.Sprintf("Failed to connect to Redis: %v", err))
+		log.Fatalf("Failed to parse Redis URL: %v", err)
 	}
 
-	fmt.Println("Connected to Redis at", addr)
+	rdb = redis.NewClient(opt)
 
+	_, err = rdb.Ping(ctx).Result()
+	if err != nil {
+		log.Fatalf("Failed to connect to Redis: %v", err)
+	}
+
+	log.Println("Connected to Redis!")
 	return rdb
 }
